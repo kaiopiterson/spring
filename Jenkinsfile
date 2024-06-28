@@ -1,8 +1,8 @@
 pipeline {
-    agent {
-        docker {
-            image 'maven:3.8.1-openjdk-11' // ou a versão que você precisa
-        }
+    agent any
+
+    environment {
+        DOCKER_IMAGE = 'maven:3.8.1-openjdk-11'
     }
 
     stages {
@@ -14,8 +14,10 @@ pipeline {
         stage('Build Spring Boot') {
             steps {
                 script {
-                    // Construir projeto Spring Boot
-                    sh 'mvn clean package'
+                    // Usando Docker para construir o projeto Spring Boot
+                    docker.image(env.DOCKER_IMAGE).inside {
+                        sh 'mvn clean package'
+                    }
                 }
             }
         }
