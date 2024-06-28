@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'maven:3.8.6-openjdk-11'
-            args '-v /var/run/docker.sock:/var/run/docker.sock -e DOCKER_HOST=tcp://jenkins-dind:2375'
-        }
-    }
+    agent any
     
     stages {
         stage('Checkout') {
@@ -13,6 +8,9 @@ pipeline {
             }
         }
         stage('Build Spring Boot') {
+            agent {
+                label 'maven'
+            }
             steps {
                 sh 'mvn clean package'
             }
