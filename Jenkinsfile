@@ -1,8 +1,18 @@
 pipeline {
     agent any
 
+    environment {
+        // ID de credenciais do Docker Hub
+        //DOCKER_HUB_CREDENTIALS = credentials('docker-hub-credentials-id')
+    }
+
     stages {
-        stage('Build') {
+        stage('Checkout') {
+            steps {
+                git credentialsId: '8fb17e3f-d166-4f52-b703-eaf153bc530a', url: 'https://github.com/kaiopiterson/spring'
+            }
+        }
+        stage('Build Spring Boot') {
             steps {
                 script {
                     // Construir projeto Spring Boot
