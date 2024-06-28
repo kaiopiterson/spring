@@ -1,12 +1,10 @@
 pipeline {
     agent any
-    tools {
-        maven 'Maven35'
-    }
+    
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', credentialsId: '6c8c3fdd-c673-4f00-a8b5-8285149e2031', url: 'https://github.com/kaiopiterson/spring'
+                git branch: 'main', credentialsId: '8fb17e3f-d166-4f52-b703-eaf153bc530a', url: 'https://github.com/kaiopiterson/spring'
             }
         }
         stage('Build Spring Boot') {
@@ -19,11 +17,11 @@ pipeline {
                 sh 'docker build -t springboot-app .'
             }
         }
-        /*stage('Deploy') {
+        stage('Deploy') {
             steps {
                 sh 'docker run -d -p 8082:8080 springboot-app'
             }
-        }*/
+        }
     }
     post {
         always {
