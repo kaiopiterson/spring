@@ -16,12 +16,6 @@ pipeline {
             }
         }
         stage('Build Docker Image') {
-            agent {
-                docker {
-                    image 'docker:latest'
-                    args '--privileged -v /var/run/docker.sock:/var/run/docker.sock'
-                }
-            }
             environment {
                 DOCKER_HOST = 'tcp://jenkins-dind:2375'
             }
