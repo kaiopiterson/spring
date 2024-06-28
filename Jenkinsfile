@@ -22,11 +22,17 @@ pipeline {
                     args '--privileged -v /var/run/docker.sock:/var/run/docker.sock'
                 }
             }
+            environment {
+                DOCKER_HOST = 'tcp://jenkins-dind:2375'
+            }
             steps {
                 sh 'docker build -t springboot-app .'
             }
         }
         stage('Deploy') {
+            environment {
+                DOCKER_HOST = 'tcp://jenkins-dind:2375'
+            }
             steps {
                 sh 'docker run -d -p 8082:8080 springboot-app'
             }
