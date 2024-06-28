@@ -8,31 +8,22 @@ pipeline {
         }
         stage('Build Spring Boot') {
             steps {
-                script {
-                    {
-                        sh 'mvn clean package'
-                    }
-                }
+                sh 'mvn clean package'
             }
         }
         stage('Build Docker Image') {
             steps {
-                script {
-                    // Construir imagem Docker para o projeto Spring Boot
-                    sh 'docker build -t springboot-app .'
-                }
+                // Construir imagem Docker para o projeto Spring Boot
+                sh 'docker build -t springboot-app .'
             }
         }
         /*stage('Deploy') {
             steps {
-                script {
-                    // Executar contêiner Docker para o projeto Spring Boot
-                    sh 'docker run -d -p 8082:8080 springboot-app'
-                }
+                // Executar contêiner Docker para o projeto Spring Boot
+                sh 'docker run -d -p 8082:8080 springboot-app'
             }
         }*/
     }
-
     post {
         always {
             cleanWs()
