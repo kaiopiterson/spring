@@ -1,11 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        // ID de credenciais do Docker Hub
-        //DOCKER_HUB_CREDENTIALS = credentials('docker-hub-credentials-id')
-    }
-
     stages {
         stage('Checkout') {
             steps {
@@ -22,7 +17,7 @@ pipeline {
                 }
             }
         }
-        stage('Build Docker Images') {
+        stage('Build Docker Image') {
             steps {
                 script {
                     // Construir imagem Docker para o projeto Spring Boot
