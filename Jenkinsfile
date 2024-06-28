@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    tools {
+        maven 'Maven3'
+    }
     stages {
         stage('Checkout') {
             steps {
@@ -13,13 +16,11 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-                // Construir imagem Docker para o projeto Spring Boot
                 sh 'docker build -t springboot-app .'
             }
         }
         /*stage('Deploy') {
             steps {
-                // Executar contêiner Docker para o projeto Spring Boot
                 sh 'docker run -d -p 8082:8080 springboot-app'
             }
         }*/
