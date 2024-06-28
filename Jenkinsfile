@@ -11,7 +11,7 @@ pipeline {
             steps {
                 script {
                     // Construir projeto Spring Boot
-                    dir('path-to-springboot-project') {
+                    dir('spring') {
                         sh 'mvn clean package'
                     }
                 }
@@ -21,7 +21,7 @@ pipeline {
             steps {
                 script {
                     // Construir imagem Docker para o projeto Spring Boot
-                    dir('path-to-springboot-project') {
+                    dir('spring') {
                         sh 'docker build -t springboot-app .'
                     }
                 }
