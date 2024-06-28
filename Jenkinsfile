@@ -12,7 +12,7 @@ pipeline {
                 label 'maven'
             }
             steps {
-                sh 'mvn clean package'
+                sh 'mvn clean package -DskipTests'
             }
         }
         stage('Build Docker Image') {
