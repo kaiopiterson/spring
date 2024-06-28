@@ -16,17 +16,11 @@ pipeline {
             }
         }
         stage('Build Docker Image') {
-            agent {
-                label 'docker'
-            }
             steps {
                 sh 'docker build -t springboot-app .'
             }
         }
         stage('Deploy') {
-            agent {
-                label 'docker'
-            }
             steps {
                 sh 'docker run -d -p 8082:8080 springboot-app'
             }
