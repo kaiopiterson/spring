@@ -1,6 +1,9 @@
 pipeline {
     agent any
-    
+
+    environment {
+        KUBECONFIG_CREDENTIALS_ID = 'kubeconfig' // substitua pelo ID da credencial do arquivo kubeconfig
+    } 
     stages {
         stage('Checkout') {
             steps {
