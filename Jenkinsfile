@@ -23,10 +23,10 @@ pipeline {
         }
         stage('Push Docker Image') {
             steps {
-                withCredentials([string(credentialsId: 'dockerhub', variable: 'DOCKERHUB_PASSWORD')]) {
-                    sh 'docker login -u kaiopiterson -p $DOCKERHUB_PASSWORD'
-                    sh 'docker tag springboot-app kaiopiterson/springboot-app:latest'
-                    sh 'docker push kaiopiterson/springboot-app:latest'
+                withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
+                    sh 'docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD'
+                    sh 'docker tag springboot-app $DOCKERHUB_USERNAME/springboot-app:latest'
+                    sh 'docker push $DOCKERHUB_USERNAME/springboot-app:latest'
                 }
             }
         }
