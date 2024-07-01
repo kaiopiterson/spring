@@ -35,7 +35,7 @@ pipeline {
         }*/
         stage('Deploy to Kubernetes') {
             agent {
-                label 'docker' // Usar o agente com o label 'docker'
+                label 'docker'
             }
             steps {
                 withCredentials([file(credentialsId: env.KUBECONFIG_CREDENTIALS_ID, variable: 'KUBECONFIG')]) {
