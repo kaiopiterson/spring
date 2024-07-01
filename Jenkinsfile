@@ -23,9 +23,20 @@ pipeline {
                 sh 'docker build -t springboot-app .'
             }
         }
-        stage('Deploy') {
+        /*stage('Push Docker Image') {
             steps {
-                sh 'docker run -d -p 8082:8080 springboot-app'
+                withCredentials([string(credentialsId: 'dockerhub', variable: 'DOCKERHUB_PASSWORD')]) {
+                    sh 'docker login -u your_dockerhub_username -p $DOCKERHUB_PASSWORD'
+                    sh 'docker tag springboot-app your_dockerhub_username/springboot-app:latest'
+                    sh 'docker push your_dockerhub_username/springboot-app:latest'
+                }
+            }
+        }*/
+        stage('Deploy to Kubernetes') {
+            steps {
+                withCredentials([file(credentialsId: env.KUBECONFIG_CREDENTIALS_ID, variable: 'KUBECONFIG')]) {
+                    sh 'kubectl apply -f k8s/deployment.yaml --kubeconfig=$KUBECONFIG'
+                }
             }
         }
     }
