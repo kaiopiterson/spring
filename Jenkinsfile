@@ -18,18 +18,18 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t spring .'
+                sh 'docker build -t springboot-app .'
             }
         }
-        /*stage('Push Docker Image') {
+        stage('Push Docker Image') {
             steps {
                 withCredentials([string(credentialsId: 'dockerhub', variable: 'DOCKERHUB_PASSWORD')]) {
-                    sh 'docker login -u your_dockerhub_username -p $DOCKERHUB_PASSWORD'
-                    sh 'docker tag springboot-app your_dockerhub_username/springboot-app:latest'
-                    sh 'docker push your_dockerhub_username/springboot-app:latest'
+                    sh 'docker login -u kaiopiterson -p $DOCKERHUB_PASSWORD'
+                    sh 'docker tag springboot-app kaiopiterson/springboot-app:latest'
+                    sh 'docker push kaiopiterson/springboot-app:latest'
                 }
             }
-        }*/
+        }
         stage('Deploy to Kubernetes') {
             steps {
                 withCredentials([file(credentialsId: env.KUBECONFIG_CREDENTIALS_ID, variable: 'KUBECONFIG')]) {
