@@ -3,7 +3,8 @@ pipeline {
 
     environment {
         KUBECONFIG_CREDENTIALS_ID = 'kubeconfig' // substitua pelo ID da credencial do arquivo kubeconfig
-    } 
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -16,6 +17,9 @@ pipeline {
             }
         }
         stage('Build Docker Image') {
+            agent {
+                label 'docker' // Usar o agente com o label 'docker'
+            }
             steps {
                 sh 'docker build -t springboot-app .'
             }
@@ -37,6 +41,7 @@ pipeline {
             }
         }
     }
+
     post {
         always {
             cleanWs()
