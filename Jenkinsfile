@@ -18,10 +18,10 @@ pipeline {
         }
         stage('Build Docker Image') {
             agent {
-                label 'docker' // Usar o agente com o label 'docker'
+                label 'docker'
             }
             steps {
-                sh 'docker build -t springboot-app .'
+                sh 'docker build -t spring .'
             }
         }
         /*stage('Push Docker Image') {
