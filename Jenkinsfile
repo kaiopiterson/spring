@@ -17,9 +17,6 @@ pipeline {
             }
         }
         stage('Build Docker Image') {
-            agent {
-                label 'docker'
-            }
             steps {
                 sh 'docker build -t spring .'
             }
@@ -34,9 +31,6 @@ pipeline {
             }
         }*/
         stage('Deploy to Kubernetes') {
-            agent {
-                label 'docker'
-            }
             steps {
                 withCredentials([file(credentialsId: env.KUBECONFIG_CREDENTIALS_ID, variable: 'KUBECONFIG')]) {
                     sh 'kubectl apply -f deployment.yaml --kubeconfig=$KUBECONFIG'
