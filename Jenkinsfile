@@ -11,9 +11,6 @@ pipeline {
             }
         }
         stage('Build Spring Boot') {
-            agent {
-                label 'maven'
-            }
             steps {
                 sh 'mvn clean package -DskipTests'
             }
